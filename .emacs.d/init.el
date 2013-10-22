@@ -9,10 +9,10 @@
 
 ;; ------------------------------------------------------------------------
 ;; @ auto-install
-;;(when (require 'auto-install nil t)
-;;	(setq auto-install-directory "~/.emacs.d/elisp/")
-;;	(auto-install-update-emacswiki-package-name t)
-;;	(auto-install-compatibility-setup))
+(when (require 'auto-install nil t)
+	(setq auto-install-directory "~/.emacs.d/elisp/")
+	(auto-install-update-emacswiki-package-name t)
+	(auto-install-compatibility-setup))
 
 ;; ------------------------------------------------------------------------
 ;; @ sudo-ext
@@ -63,19 +63,19 @@
 
 ; TAB setting
 (setq-default tab-width 4)
-;(setq c-default-style
-;	'((java-mode . "java") (other . "linux")))
-;(setq c-basic-offset 4)
-;(add-hook 'html-mode-hook
-;	(lambda()
-;		(setq sgml-basic-offset 4)
-;		(setq indent-tabs-mode t)))
+(setq c-default-style
+	'((java-mode . "java") (other . "linux")))
+(setq c-basic-offset 4)
+(add-hook 'html-mode-hook
+	(lambda()
+		(setq sgml-basic-offset 4)
+		(setq indent-tabs-mode t)))
 
 ;; frame transparency
 ;(set-frame-parameter (selected-frame) 'alpha '(85 50))
 
 ;; hide toolbar
-;(tool-bar-mode -1)
+(tool-bar-mode -1)
 
 ;; disable backup
 (setq backup-inhibited t)
@@ -102,15 +102,15 @@
 ;	 nil 'japanese-jisx0208
 ;	 (font-spec :family "Hiragino Kaku Gothic ProN" :size 16)))
 
-;(when (eq system-type 'gnu/linux)
-;	(set-face-attribute 'default nil
-;	:family "DejaVu Sans Mono"
-;	:height 160)
-;
-;;	(set-fontset-font
-;;	 nil 'japanese-jisx0208
-;;	 (font-spec :family "DejaVu Sans Mono" :size 16)))
-;	)
+(when (eq system-type 'gnu/linux)
+	(set-face-attribute 'default nil
+	:family "Anonymous Pro"
+	:height 160)
+
+;	(set-fontset-font
+;	 nil 'japanese-jisx0208
+;	 (font-spec :family "DejaVu Sans Mono" :size 16)))
+	)
 ;; ------------------------------------------------------------------------
 ;; @ keybind
 
@@ -147,6 +147,41 @@
 (setq mouse-wheel-progressive-speed nil)										;; don't accelerate scrolling
 (setq mouse-wheel-follow-mouse 't)												;; scroll window under mouse
 (setq scroll-step 1)															;; keyboard scroll one line at a time
+
+;; ------------------------------------------------------------------------
+;; @ reopen as root 
+
+(defun reopen-with-sudo ()
+  "Reopen current buffer-file with sudo using tramp."
+  (interactive)
+  (let ((file-name (buffer-file-name)))
+    (if file-name
+        (find-alternate-file (concat "/sudo::" file-name))
+      (error "Cannot get a file name"))))
+
+(defun th-rename-tramp-buffer ()
+  (when (file-remote-p (buffer-file-name))
+    (rename-buffer
+     (format "%s:%s"
+             (file-remote-p (buffer-file-name) 'method)
+             (buffer-name)))))
+
+(add-hook 'find-file-hook
+          'th-rename-tramp-buffer)
+
+(defadvice find-file (around th-find-file activate)
+  "Open FILENAME using tramp's sudo method if it's read-only."
+  (if (and (not (file-writable-p (ad-get-arg 0)))
+           (y-or-n-p (concat "File "
+                             (ad-get-arg 0)
+                             " is read-only.  Open it as root? ")))
+      (th-find-file-sudo (ad-get-arg 0))
+    ad-do-it))
+
+(defun th-find-file-sudo (file)
+  "Opens FILE with root privileges."
+  (interactive "F")
+  (set-buffer (find-file (concat "/sudo::" file))))
 
 ;; ------------------------------------------------------------------------
 ;; @ color
