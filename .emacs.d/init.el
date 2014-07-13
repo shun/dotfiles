@@ -63,6 +63,8 @@
 ; (setq hl-line-face 'underline) ;
 (global-hl-line-mode)
 
+(setq frame-title-format
+      (format "%%f - Emacs@%s" (system-name)))
 
 ;; ------------------------------------------------------------------------
 ;; @ auto-install
