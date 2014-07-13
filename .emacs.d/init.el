@@ -211,6 +211,11 @@
   (global-set-key   [mouse-4] '(lambda () (interactive) (scroll-down 1)))
   (global-set-key   [mouse-5] '(lambda () (interactive) (scroll-up   1))))
   
+;; ------------------------------------------------------------------------
+;; @ setting for Linux
+(when (eq system-type 'gnu/linux)
+)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
