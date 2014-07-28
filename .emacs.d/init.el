@@ -75,6 +75,14 @@
   (auto-install-compatibility-setup))
 
 ;; ------------------------------------------------------------------------
+;; @ gdb
+
+(setq gdb-many-windows t)
+(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+(setq gdb-use-separate-io-buffer t)
+(setq gud-tooltip-echo-area nil)
+
+;; ------------------------------------------------------------------------
 ;; @ markdown-mode
 
 (autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
@@ -157,14 +165,28 @@
 (setq-default tab-width 4)
 (custom-set-variables '(tab-width 4))
 (add-hook 'c-mode-hook '(lambda () (setq tab-width 4)))
-(add-hook 'c++-mode-hook '(lambda () (setq tab-width 4)))
-(add-hook 'asm-mode-hook '(lambda () (setq tab-width 4)))
+(setq-default c-indent-tabs-mode t
+			c-indent-level 4
+                c-tab-always-indent t)
+
+(defun my-c++-mode-hook ()
+  (c-set-style "linux")
+  (setq tab-width 4)
+  (setq c-basic-offset tab-width))
+(add-hook 'c++-mode-hook 'my-c++-mode-hook)
+
+;;タブではなくスペースを使う
+(setq-default indent-tabs-mode t)
+;;(setq indent-line-function 'indent-relative-maybe)
+
+
 
 ;; ------------------------------------------------------------------------
 ;; @ keybind
 
 (define-key global-map (kbd "C-h") 'delete-backward-char)		; delete
 (define-key global-map (kbd "C-x b") 'anything)					; anything
+(define-key global-map (kbd "C-t") 'other-window)				; toggle other window 
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)	; direx
 
 ;; ------------------------------------------------------------------------
@@ -192,6 +214,7 @@
  '(markdown-header-face-6 ((t (:inherit markdown-header-face :foreground "white"))))
  '(markdown-header-rule-face ((t (:inherit font-lock-function-name-face :foreground "white" :weight bold))))
  '(minibuffer-prompt ((t (:foreground "cyan")))))
+
 
 ;; ------------------------------------------------------------------------
 ;; @ setting for Mac
