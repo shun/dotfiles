@@ -128,6 +128,9 @@
   (when (require 'descbinds-anything nil t)
 	(descbinds-anything-install)))
 
+(require 'ac-anything)
+(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-anything)
+
 
 ;; ------------------------------------------------------------------------
 ;; @ popwin
@@ -187,6 +190,9 @@
 (define-key global-map (kbd "C-h") 'delete-backward-char)		; delete
 (define-key global-map (kbd "C-x b") 'anything)					; anything
 (define-key global-map (kbd "C-t") 'other-window)				; toggle other window 
+(define-key global-map (kbd "<f5>") 'revert-buffer)				; reload file
+;;(define-key global-map (kbd "C-/") ')				; reload file
+(define-key global-map (kbd "M-/") 'undo)						; undo
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)	; direx
 
 ;; ------------------------------------------------------------------------
