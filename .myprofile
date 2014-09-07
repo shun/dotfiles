@@ -1,2 +1,10 @@
-export PS1="[\u@\h: \W] "
+BPC="\[\e[0;32m\]"
+YPC="\[\e[0;36m\]"
+HPC="\[\e[0;33m\]"
+export PS1="${BPC}[${YPC}\u${BPC}@${HPC}\h${BPC}: \w]\n\[\e[00m\]\$ "
+
+alias ga="git add"
+alias gs="git status"
+alias gc="git commit -m"
+alias gp="git push -u"
 
