@@ -1,10 +1,30 @@
+## general setting
+
+# prompt color
 BPC="\[\e[0;32m\]"
 YPC="\[\e[0;36m\]"
 HPC="\[\e[0;33m\]"
 export PS1="${BPC}[${YPC}\u${BPC}@${HPC}\h${BPC}: \w]\n\[\e[00m\]\$ "
 
+# alias
 alias ga="git add"
 alias gs="git status"
 alias gc="git commit -m"
 alias gp="git push -u"
+
+## setting for each OS
+
+if [ `uname` = "Darwin" ]; then
+	# for Mac
+	alias ll='ls -laG'
+	export LSCOLORS=gxfxcxdxbxegedabagacad
+	alias startemacsd="/Applications/Emacs.app/Contents/MacOS/Emacs -nw --daemon"
+	alias stopemacsd="emacsclient -e '(kill-emacs)'"
+	alias ec="emacsclient"
+	alias be="/Applications/Hex\ Fiend.app/Contents/MacOS/Hex\ Fiend"
+
+elif [ `uname` = "Linux" ]; then
+	# for Linux
+	alias startemacsd="emacs -nw --daemon"
+fi
 
