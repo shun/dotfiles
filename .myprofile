@@ -1,5 +1,7 @@
 ## general setting
 
+export PATH="/Users/shun/.cask/bin:$PATH"
+
 # prompt color
 BPC="\[\e[0;32m\]"
 YPC="\[\e[0;36m\]"
