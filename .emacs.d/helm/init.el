@@ -6,6 +6,18 @@
                  load-path))
 
 ;;---------------------------------------------------------
+;; @general setting
+
+(setq inhibit-splash-screen t)
+(setq hl-line-face 'underline)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq backup-inhibited t)
+(setq delete-auto-save-files t)
+(setq completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
+(icomplete-mode 1)
+
+;;---------------------------------------------------------
 ;; @cask
 
 (require 'cask "~/.cask/cask.el")
@@ -18,10 +30,14 @@
 (helm-mode 1)
 
 ;;---------------------------------------------------------
-;; @auto-config
+;; @auto-complete
 
 (require 'auto-complete-config)
 (ac-config-default)
+(setq ac-use-comphist t)
+(setq ac-use-menu-map t)
+(define-key ac-menu-map (kbd "C-n")         'ac-next)
+(define-key ac-menu-map (kbd "C-p")         'ac-previous)
 
 ;;---------------------------------------------------------
 ;; @appearance
@@ -34,6 +50,7 @@
 (show-paren-mode 1)
 
 ;;(global-hl-line-mode)
+(menu-bar-mode -1)
 (column-number-mode t)
 (line-number-mode t)
 (which-function-mode 1)
