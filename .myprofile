@@ -1,4 +1,5 @@
 ## general setting
+export PATH="~/.cask/bin:$PATH"
 
 # prompt color
 BPC="\[\e[0;32m\]"
@@ -16,7 +17,6 @@ alias gp="git push -u"
 
 if [ `uname` = "Darwin" ]; then
 	# for Mac
-	export PATH="/Users/shun/.cask/bin:$PATH"
 	alias ll='ls -laG'
 	export LSCOLORS=gxfxcxdxbxegedabagacad
 	alias startemacsd="/Applications/Emacs.app/Contents/MacOS/Emacs -nw --daemon"
@@ -26,7 +26,6 @@ if [ `uname` = "Darwin" ]; then
 
 elif [ `uname` = "Linux" ]; then
 	# for Linux
-	export PATH="/home/shun/.cask/bin:$PATH"
 	alias startemacsd="emacs -nw --daemon"
 fi
 
