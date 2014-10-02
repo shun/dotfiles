@@ -33,6 +33,11 @@
 ;; highlighte bracket
 (show-paren-mode 1)
 
+;;(global-hl-line-mode)
+(column-number-mode t)
+(line-number-mode t)
+(which-function-mode 1)
+
 ;;---------------------------------------------------------
 ;; @key bindings
 
@@ -40,7 +45,8 @@
 (define-key global-map (kbd "C-t") 'other-window)               ; toggle other window
 (define-key global-map (kbd "<f5>") 'revert-buffer)             ; reload file
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window)  ; direx
-
+(define-key helm-read-file-map (kbd "C-h") 'delete-backward-char)
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
 ;; ------------------------------------------------------------------------
 ;; @ popwin
@@ -75,11 +81,16 @@
 ;;---------------------------------------------------------
 ;; @appearance
 
-  (load-theme 'tango-dark)
+  (load-theme 'tango-dark t)
 )
 
 
 ;; ------------------------------------------------------------------------
 ;; @ setting for Linux
+
 (when (eq system-type 'gnu/linux)
+;;---------------------------------------------------------
+;; @appearance
+
+  (load-theme 'solarized-dark t)
 )
