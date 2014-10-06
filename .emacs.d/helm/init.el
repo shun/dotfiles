@@ -17,6 +17,14 @@
 (setq read-file-name-completion-ignore-case t)
 (icomplete-mode 1)
 
+(setq-default c-basic-offset 4
+              c-default-style "linux"
+              tab-width 4
+              shift-width 4
+              indent-tabs-mode t
+              )
+
+
 ;;---------------------------------------------------------
 ;; @cask
 
@@ -28,6 +36,7 @@
 
 (require 'helm-config)
 (helm-mode 1)
+(setq helm-buffer-max-length 50)
 
 ;;---------------------------------------------------------
 ;; @auto-complete
@@ -73,6 +82,30 @@
 
 (setq popwin:popup-window-position 'bottom)
 (setq popwin:popup-window-height '30)
+
+;; ------------------------------------------------------------------------
+;; @ ifdef face
+
+(defun cpp-highlight-if-0/1 ()
+  "Modify the face of text in between #if 0 ... #endif."
+  (interactive)
+  (setq cpp-known-face '(foreground-color . "dim gray")
+        cpp-unknown-face 'default
+        cpp-face-type 'dark
+        cpp-known-writable 't
+        cpp-unknown-writable 't)
+
+  (setq cpp-edit-list
+        '((#("0" 0 1 (fontified nil))
+           (foreground-color . "dim grey")
+           nil
+           both nil)))
+  (cpp-highlight-buffer t))
+
+(add-hook 'c-mode-common-hook
+  (lambda ()
+    (cpp-highlight-if-0/1)
+    (add-hook 'after-save-hook 'cpp-highlight-if-0/1 'append 'local)))
 
 ;; ------------------------------------------------------------------------
 ;; @ setting for Mac
