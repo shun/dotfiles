@@ -89,15 +89,21 @@
 (defun cpp-highlight-if-0/1 ()
   "Modify the face of text in between #if 0 ... #endif."
   (interactive)
-  (setq cpp-known-face '(foreground-color . "dim gray")
+  (setq cpp-known-face '(foreground-color . "olive drab")
         cpp-unknown-face 'default
         cpp-face-type 'dark
         cpp-known-writable 't
         cpp-unknown-writable 't)
 
   (setq cpp-edit-list
-        '((#("0" 0 1 (fontified nil))
-           (foreground-color . "dim grey")
+        '((#("1" 0 1
+             (fontified nil))
+           nil
+           (foreground-color . "olive drab")
+           both nil)
+          (#("0" 0 1
+             (fontified nil))
+           (foreground-color . "olive drab")
            nil
            both nil)))
   (cpp-highlight-buffer t))
