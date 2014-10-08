@@ -38,6 +38,10 @@
 (helm-mode 1)
 (setq helm-buffer-max-length 50)
 
+(setq helm-idle-delay             0.3
+      helm-input-idle-delay       0.3
+      helm-candidate-number-limit 200)
+
 ;;---------------------------------------------------------
 ;; @auto-complete
 
